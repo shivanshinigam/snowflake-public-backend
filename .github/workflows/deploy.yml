@@ -1,0 +1,27 @@
+name: Deploy Snowflake Backend
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Snowflake Registry
+        run: |
+          docker login \
+            wbauoba-qf14503.registry.snowflakecomputing.com \
+            -u "${{ secrets.SNOWFLAKE_USER }}" \
+            -p "${{ secrets.SNOWFLAKE_PASSWORD }}"
+
+      - name: Build and Push Image
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            -t wbauoba-qf14503.registry.snowflakecomputing.com/demo_db/public/spcs_image_repo/snowpark-agent-api:latest \
+            --push .
