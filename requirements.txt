@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+snowflake-snowpark-python
+python-dotenv
