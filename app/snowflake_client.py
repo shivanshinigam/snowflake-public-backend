@@ -3,6 +3,7 @@ from snowflake.snowpark import Session
 
 def get_session():
     return Session.builder.configs({
+        "account": os.getenv("SNOWFLAKE_ACCOUNT"),
         "user": os.getenv("SNOWFLAKE_USER"),
         "password": os.getenv("SNOWFLAKE_PASSWORD"),
         "role": os.getenv("SNOWFLAKE_ROLE"),
